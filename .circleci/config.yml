@@ -1,0 +1,67 @@
+aliases:
+  - &install
+    name: Yarn install
+    command: yarn install --frozen-lockfile
+  - &build
+    name: Build application
+    command: yarn dist
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.12.0
+    working_directory: ~/paperspace-client-sdk
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - paperspace-client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - paperspace-client-sdk-{{ .Branch }}
+      - run: *install
+      - run: *build
+
+      # # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+      - persist_to_workspace:
+        # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+        # taken to be the root directory of the workspace.
+          root: .
+          # Must be relative path from root
+          paths:
+              - dist
+  publish:
+    working_directory: ~/paperspace-client-sdk
+    docker:
+      - image: circleci/node:8.12.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - paperspace-client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - paperspace-client-sdk-{{ .Branch }}
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: ~/paperspace-client-sdk
+      - run:
+          name: npm secret
+          command: yarn config set _authToken "${NPM_PUBLISH_TOKEN}"
+      - run: *install
+      - save_cache:
+          key: paperspace-client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - "~/.cache/yarn"
+      - run: yarn publish
+
+workflows:
+  version: 2
+  test_build:
+    jobs:
+      - build
+      - publish:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+          requires:
+            - build

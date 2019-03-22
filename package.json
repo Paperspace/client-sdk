@@ -1,0 +1,16 @@
+{
+  "name": "paperspace-client-sdk",
+  "version": "0.0.0",
+  "description": "Paperspace SDK for client-side browser environments",
+  "main": "dist/index.js",
+  "repository": "git@github.com:Paperspace/paperspace-client-sdk.git",
+  "author": "https://github.com/Paperspace",
+  "license": "ISC",
+  "scripts": {
+    "start": "NODE_ENV=development webpack-dev-server --content-base dist/",
+    "test": "echo \"Running tests for version $npm_package_version...\"",
+    "dist": "NODE_ENV=production webpack --progress --config webpack.config.js",
+    "preversion": "yarn test",
+    "postversion": "git co -b release_v\"$npm_package_version\" && git add dist && git push --tags"
+  }
+}
