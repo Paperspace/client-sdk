@@ -11,7 +11,7 @@
     "test": "echo \"Tests not implemented...\"",
     "dist": "NODE_ENV=production webpack --progress --config webpack.config.js",
     "preversion": "yarn test && yarn dist && git add dist -f",
-    "postversion": "git push origin v\"$npm_package_version\" && git push"
+    "postversion": "git push origin :refs/tags/v\"$npm_package_version\" && git push && echo \"✨ Successfully released version v$npm_package_version! The tag build process will publish it ✨\""
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
