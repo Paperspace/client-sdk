@@ -1,16 +1,29 @@
 {
   "name": "paperspace-client-sdk",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Paperspace SDK for client-side browser environments",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "repository": "git@github.com:Paperspace/paperspace-client-sdk.git",
   "author": "https://github.com/Paperspace",
   "license": "ISC",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --content-base dist/",
-    "test": "echo \"Running tests for version $npm_package_version...\"",
+    "start": "NODE_ENV=development webpack --progress --config webpack.config.js",
+    "test": "echo \"Tests not implemented...\"",
     "dist": "NODE_ENV=production webpack --progress --config webpack.config.js",
-    "preversion": "yarn test",
-    "postversion": "git co -b release_v\"$npm_package_version\" && git add dist && git push --tags"
+    "preversion": "yarn test && yarn dist && git add dist -f",
+    "postversion": "git push origin v\"$npm_package_version\" && git push"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.0",
+    "@babel/plugin-transform-runtime": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/runtime": "^7.4.2",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-config-utils": "^2.3.1"
   }
 }

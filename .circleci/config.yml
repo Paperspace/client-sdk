@@ -20,6 +20,10 @@ jobs:
             - paperspace-client-sdk-{{ .Branch }}
       - run: *install
       - run: *build
+      - save_cache:
+          key: paperspace-client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - "~/.cache/yarn"
 
       # # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
       - persist_to_workspace:
@@ -43,25 +47,25 @@ jobs:
           # Must be absolute path or relative path from working_directory
           at: ~/paperspace-client-sdk
       - run:
-          name: npm secret
-          command: yarn config set _authToken "${NPM_PUBLISH_TOKEN}"
-      - run: *install
-      - save_cache:
-          key: paperspace-client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - "~/.cache/yarn"
-      - run: yarn publish
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/paperspace-client-sdk/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
 
 workflows:
   version: 2
-  test_build:
+  general:
     jobs:
-      - build
-      - publish:
+      - build:
           filters:
-            branches:
-              ignore: /.*/
             tags:
-              only: /^v.*/
+              only: /.*/
+      - publish:
           requires:
             - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
