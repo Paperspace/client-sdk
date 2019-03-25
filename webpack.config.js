@@ -1,4 +1,5 @@
 const path = require('path');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 
 const package = require('./package.json');
@@ -10,7 +11,10 @@ module.exports = {
   mode: ifProduction('production', 'development'),
   watch: ifProduction(false, true),
   devtool: ifProduction('source-map', 'cheap-module-eval-source-map'),
-  entry: './src/index.js',
+  entry: {
+    main: './src/index.js',
+    ...ifNotProduction({ streams: './examples/streams.js' })
+  },
   output: {
     path: destination,
     filename: '[name].js',
@@ -35,4 +39,16 @@ module.exports = {
   stats: {
     colors: true
   },
+  plugins: [
+    new FileManagerPlugin({
+      onEnd: {
+        copy: removeEmpty([
+          ifNotProduction({
+            source: path.resolve(__dirname, 'examples', 'index.html'),
+            destination
+          })
+        ])
+      }
+    })
+  ]
 };

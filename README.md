@@ -14,6 +14,14 @@ or
 npm install paperspace-client-sdk
 ```
 
+## Run example
+
+This will run the build and serve an example page with some examples on it:
+
+```
+yarn
+yarn start
+```
 
 ## Build for development
 
@@ -21,7 +29,7 @@ If you are developing this repository in conjunction with another or just want t
 
 ```
 yarn
-yarn start
+yarn dev
 ```
 
 ## Build for production

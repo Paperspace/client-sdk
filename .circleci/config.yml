@@ -55,12 +55,12 @@ jobs:
 
 workflows:
   version: 2
-  general:
+  pipeline:
     jobs:
       - build:
           filters:
             tags:
-              only: /.*/
+              only: /^v.*/
       - publish:
           requires:
             - build
