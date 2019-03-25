@@ -13,11 +13,11 @@
 
 // i like to define variables before they are used
 // see api object below for interface
-var comToken = 0;
+let comToken = 0;
 
-var buffer = [];
+let buffer = [];
 
-var sendMessage = function (payload) {
+function sendMessage(payload) {
   if (comToken === 0) {
     buffer.push(payload);
   } else {
@@ -31,7 +31,7 @@ var sendMessage = function (payload) {
 // ---------------------------------------
 // the api object
 
-var api = {
+const api = {
   ready: function () {
     sendMessage({
       type: 'ready'
@@ -42,22 +42,21 @@ var api = {
 
 // internal event handlers
 
-var handleMessageReceived = function (payload) {
+function handleMessageReceived (payload) {
   if (payload.type === 'openvm') {
     api.onOpenVmRequest(payload.vmInfo);
   }
 };
 
-var sendBuffered = function () {
-  var i = 0;
-  for (i = 0; i < buffer.length; ++i) {
+function sendBuffered () {
+  for (let i = 0; i < buffer.length; ++i) {
     sendMessage(buffer[i]);
   }
   buffer = [];
 };
 
 window.addEventListener('message', function (msg) {
-  var data = msg.data;
+  const data = msg.data;
   if (!data || !data.payload) {
     return;
   }
@@ -65,7 +64,6 @@ window.addEventListener('message', function (msg) {
     comToken = data.comToken;
     sendBuffered();
   };
-  console.log(msg)
   handleMessageReceived(data.payload);
 }, false);
 

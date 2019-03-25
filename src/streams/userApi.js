@@ -17,12 +17,12 @@
 unfortunately there is no way to map a message to a cross domain iframe without risk of ambiguity
 therefore we use a communication token and a global registry to identify our iframes and stream instances
 */
-var communicationToken = 1;
-var instances = {};
+let communicationToken = 1;
+const instances = {};
 
 window.addEventListener('message', function (msg) {
-  var data = msg.data;
-  var instance = instances[data.comToken];
+  const data = msg.data;
+  const instance = instances[data.comToken];
   if (!instance) {
     // dead instance
     return;
@@ -35,19 +35,20 @@ window.addEventListener('message', function (msg) {
 }, false);
 
 
-var StreamApi = function (domNode, vmInfo) {
+function StreamApi(domNode, vmInfo = {}) {
   return new Promise((resolve, reject) => {
-    if (!vmInfo || !vmInfo.machineId) {
+    if (!vmInfo.machineId) {
       reject(new Error('Please provide a machineId to connect the stream to.'));
+      return;
     }
 
-    var comToken = communicationToken;
+    const comToken = communicationToken;
     communicationToken += 1;
     instances[comToken] = this;
 
-    var intervalPoster = null;
-    var iframe = document.createElement('iframe');
-    var targetSrc = 'http://localhost:3002/machine/' + vmInfo.machineId;
+    let intervalPoster = null;
+    const iframe = document.createElement('iframe');
+    const targetSrc = 'http://localhost:3002/machine/' + vmInfo.machineId;
     iframe.setAttribute('src', targetSrc);
     iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
     domNode.appendChild(iframe);
@@ -65,7 +66,7 @@ var StreamApi = function (domNode, vmInfo) {
       }, 5000);
     }, false);
 
-    var stream = {
+    const stream = {
       resize: function (x, y) {
 
       },
@@ -81,7 +82,6 @@ var StreamApi = function (domNode, vmInfo) {
         delete instances[comToken];
 
         iframe.parentNode.removeChild(iframe);
-        iframe = null;
       }
     };
 
@@ -98,7 +98,7 @@ var StreamApi = function (domNode, vmInfo) {
   });
 };
 
-var api = {
+const api = {
   createStream: function (domNode, vmInfo) {
     return new StreamApi(domNode, vmInfo);
   }
