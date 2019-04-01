@@ -9,10 +9,6 @@ The module is published as a node_module under the same name [`paperspace-client
 ```
 yarn add paperspace-client-sdk
 ```
-or
-```
-npm install paperspace-client-sdk
-```
 
 ## Run example
 
@@ -57,7 +53,7 @@ After this, you want to run `yarn link paperspace-client-sdk` in the host reposi
 
 ## Publish a new version
 
-This repository is set up to publish a new version on a new tag. To publish a new version, first pull latest changes from development (or whatever branch you are planning to release from) and checkout a new release branch, where `<new-version>` is the new version you are about to publish:
+This repository is set up to publish a new version on a new tag. To publish a new version, first pull latest changes from development, and checkout a new release branch (if you are not quite sure yet you can use a [pre-release version](https://semver.org/#spec-item-9)), where `<new-version>` is the new version you are about to publish:
 ```
 $ git pull --rebase
 $ git checkout release_v<new-version>
@@ -71,9 +67,11 @@ question New version: <new-version> # Do not prefix with 'v'!
 ...
 ✨ Successfully released version v<new-version>! The tag build process will publish it ✨
 ```
-Yarn will run `preversion` and `postversion` scripts to commit the version change and the new tag. CircleCI will pick up on the newly created tag and automatically publish the version. That's it!
+Yarn will run `preversion` and `postversion` scripts to commit the version change and the new tag. CircleCI will pick up on the newly created tag and automatically publish the version.
 
-Now you can install it with either `yarn add paperspace-client-sdk@latest` or `yarn add paperspace-client-sdk@<new-version>`.
+Be sure to create a pull request to merge your version change back into development!
+
+That's it! Now you can install it with either `yarn add paperspace-client-sdk@latest` or `yarn add paperspace-client-sdk@<new-version>`.
 
 **NB**: Even if the version number is lower than a previously released version, it will be installed as the latest version!
 

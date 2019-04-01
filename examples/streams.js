@@ -14,10 +14,10 @@ function startStream() {
   vmStreamElement.setAttribute('style', style);
   const vmInfo = {
     machineId: document.querySelector('input.machineIdInput').value,
-    accessToken:document.querySelector('input.accessTokenInput').value
+    accessToken: document.querySelector('input.accessTokenInput').value
   };
-  streams.createStream(vmStreamElement, vmInfo).then(function (stream) {
-    const stopSteamBtn = document.querySelector('.stop-stream')
+  streams.createStream(vmStreamElement, vmInfo).then((stream) => {
+    const stopSteamBtn = document.querySelector('.stop-stream');
     if (typeof boundStopStream === 'function') {
       boundStopStream();
       stopSteamBtn.removeEventListener('click', boundStopStream);
@@ -31,7 +31,7 @@ function startStream() {
 }
 
 function initialize() {
-  const startStreamBtn = document.querySelector('.start-stream')
+  const startStreamBtn = document.querySelector('.start-stream');
   startStreamBtn.addEventListener('click', startStream);
 }
 

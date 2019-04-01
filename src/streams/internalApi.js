@@ -1,70 +1,75 @@
-/*
-
-  to be used inside the iframe
-
- usage:
-   api.onOpenVmRequest = function (vmInfo) {
-     // my openvm code
-   }
-
-   api.ready();
-
-*/
+/**
+ *
+ * to be used inside the iframe
+ *
+ * @example
+ *
+ * api.onOpenVmRequest = function (vmInfo) {
+ *  // my openvm code
+ * }
+ *
+ * api.ready();
+ */
 
 // i like to define variables before they are used
 // see api object below for interface
 let comToken = 0;
-
 let buffer = [];
 
 function sendMessage(payload) {
   if (comToken === 0) {
     buffer.push(payload);
   } else {
-    window.parent.postMessage({
-      comToken,
-      payload
-    }, '*');
-  };
+    window.parent.postMessage(
+      {
+        comToken,
+        payload
+      },
+      '*'
+    );
+  }
 }
 
 // ---------------------------------------
 // the api object
-
 const api = {
-  ready: function () {
+  ready() {
     sendMessage({
       type: 'ready'
     });
   },
-  onOpenVmRequest: function () {} // override with your event handler
+  onOpenVmRequest() {} // override with your event handler
 };
 
 // internal event handlers
 
-function handleMessageReceived (payload) {
+function handleMessageReceived(payload) {
   if (payload.type === 'openvm') {
     api.onOpenVmRequest(payload.vmInfo);
   }
-};
+}
 
-function sendBuffered () {
-  for (let i = 0; i < buffer.length; ++i) {
-    sendMessage(buffer[i]);
-  }
+function sendBuffered() {
+  buffer.forEach(msg => {
+    sendMessage(msg);
+  });
   buffer = [];
-};
+}
 
-window.addEventListener('message', function (msg) {
-  const data = msg.data;
-  if (!data || !data.payload) {
-    return;
-  }
-  if (comToken === 0 && data.comToken) {
-    comToken = data.comToken;
-    sendBuffered();
-  };
-  handleMessageReceived(data.payload);
-}, false);
+window.addEventListener(
+  'message',
+  function handleMessage(msg) {
+    const data = msg.data;
+    if (!data || !data.payload) {
+      return;
+    }
+    if (comToken === 0 && data.comToken) {
+      comToken = data.comToken;
+      sendBuffered();
+    }
+    handleMessageReceived(data.payload);
+  },
+  false
+);
 
 module.exports = api;
