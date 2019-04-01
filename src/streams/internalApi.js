@@ -34,9 +34,7 @@ function sendMessage(payload) {
 // the api object
 const api = {
   ready() {
-    sendMessage({
-      type: 'ready'
-    });
+    sendMessage({ type: 'ready' });
   },
   onOpenVmRequest() {} // override with your event handler
 };

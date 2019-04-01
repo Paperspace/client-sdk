@@ -21,6 +21,10 @@
  */
 let communicationToken = 1;
 const instances = {};
+let host = 'https://paperspace.com';
+if (process.env.STREAM_HOST) {
+  host = process.env.STREAM_HOST;
+}
 
 window.addEventListener(
   'message',
@@ -53,7 +57,8 @@ function StreamApi(domNode, vmInfo = {}) {
 
     let intervalPoster = null;
     const iframe = document.createElement('iframe');
-    const targetSrc = 'http://localhost:3002/machine/' + vmInfo.machineId;
+    const targetSrc = `${host}/machine/${vmInfo.machineId}/embed`;
+
     iframe.setAttribute('src', targetSrc);
     iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
     domNode.appendChild(iframe);
