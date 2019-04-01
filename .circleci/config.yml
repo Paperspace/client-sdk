@@ -1,4 +1,7 @@
 aliases:
+  - &npm_secret
+    name: Authenticate with NPM registry
+    command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
   - &install
     name: Yarn install
     command: yarn install --frozen-lockfile
@@ -46,9 +49,9 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ~/paperspace-client-sdk
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/paperspace-client-sdk/.npmrc
+      - run: *npm_secret
+      - run: *install
+      - run: *build
       - run:
           name: Publish package
           command: npm publish --access=public
