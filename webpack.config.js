@@ -1,5 +1,6 @@
 const path = require('path');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
+const webpack = require('webpack');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 
 const packageJson = require('./package.json');
@@ -40,6 +41,11 @@ module.exports = {
     colors: true
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        STREAM_HOST: JSON.stringify(process.env.STREAM_HOST)
+      }
+    }),
     new FileManagerPlugin({
       onEnd: {
         copy: removeEmpty([

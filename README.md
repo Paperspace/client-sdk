@@ -1,13 +1,13 @@
-# paperspace-client-sdk
+# @paperspace/client-sdk
 
 Paperspace SDK for client-side browser environments
 
 ## Install module
 
-The module is published as a node_module under the same name [`paperspace-client-sdk`](https://www.npmjs.com/package/paperspace-client-sdk) on [NPM](www.npmjs.com). You can install it like so:
+The module is published as a node_module under the same name [`@paperspace/client-sdk`](https://www.npmjs.com/package/@paperspace/client-sdk) on [NPM](www.npmjs.com). You can install it like so:
 
 ```
-yarn add paperspace-client-sdk
+yarn add @paperspace/client-sdk
 ```
 
 ## Run example
@@ -39,15 +39,15 @@ yarn dist
 
 ## Developing in conjunction with another repository
 
-If you are developing this repository in conjunction with another, you can [`yarn link`](https://yarnpkg.com/lang/en/docs/cli/link/) your local version of the paperspace-client-sdk into the host repository:
+If you are developing this repository in conjunction with another, you can [`yarn link`](https://yarnpkg.com/lang/en/docs/cli/link/) your local version of the @paperspace/client-sdk into the host repository:
 
 ```
 yarn link
 ```
 
-After this, you want to run `yarn link paperspace-client-sdk` in the host repository to activate it.
+After this, you want to run `yarn link @paperspace/client-sdk` in the host repository to activate it.
 
-**NB**: Once you are done developing paperspace-client-sdk remember to run `yarn unlink paperspace-client-sdk` in the host repository and `yarn unlink` in the root of this repository! This link will stay active, even if you switch branches or pull the latest changes until you unlink them.
+**NB**: Once you are done developing @paperspace/client-sdk remember to run `yarn unlink @paperspace/client-sdk` in the host repository and `yarn unlink` in the root of this repository! This link will stay active, even if you switch branches or pull the latest changes until you unlink them.
 
 **NBB**: Yarn does not work very well with passphrase prompts - [it basically ignores them](https://github.com/yarnpkg/yarn/issues/3699) - so if you use that for you ssh-key, please use [`ssh-add`](https://www.ssh.com/ssh/add) to remember your authentication for the given session.
 
@@ -71,7 +71,7 @@ Yarn will run `preversion` and `postversion` scripts to commit the version chang
 
 Be sure to create a pull request to merge your version change back into development!
 
-That's it! Now you can install it with either `yarn add paperspace-client-sdk@latest` or `yarn add paperspace-client-sdk@<new-version>`.
+That's it! Now you can install it with either `yarn add @paperspace/client-sdk@latest` or `yarn add @paperspace/client-sdk@<new-version>`.
 
 **NB**: Even if the version number is lower than a previously released version, it will be installed as the latest version!
 

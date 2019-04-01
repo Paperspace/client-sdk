@@ -14,17 +14,17 @@ jobs:
   build:
     docker:
       - image: circleci/node:8.12.0
-    working_directory: ~/paperspace-client-sdk
+    working_directory: ~/client-sdk
     steps:
       - checkout
       - restore_cache:
           keys:
-            - paperspace-client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - paperspace-client-sdk-{{ .Branch }}
+            - client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - client-sdk-{{ .Branch }}
       - run: *install
       - run: *build
       - save_cache:
-          key: paperspace-client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - "~/.cache/yarn"
 
@@ -37,18 +37,18 @@ jobs:
           paths:
               - dist
   publish:
-    working_directory: ~/paperspace-client-sdk
+    working_directory: ~/client-sdk
     docker:
       - image: circleci/node:8.12.0
     steps:
       - checkout
       - restore_cache:
           keys:
-            - paperspace-client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - paperspace-client-sdk-{{ .Branch }}
+            - client-sdk-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - client-sdk-{{ .Branch }}
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: ~/paperspace-client-sdk
+          at: ~/client-sdk
       - run: *npm_secret
       - run: *install
       - run: *build
