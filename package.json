@@ -8,11 +8,21 @@
   "license": "ISC",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --content-base dist/",
-    "test": "echo \"Tests not implemented...\"",
+    "test": "eslint .",
     "dev": "NODE_ENV=development webpack --progress --config webpack.config.js",
     "dist": "NODE_ENV=production webpack --progress --config webpack.config.js",
     "preversion": "yarn test && yarn dist && git add dist -f",
     "postversion": "git push origin refs/tags/v\"$npm_package_version\" && git push && echo \"✨ Successfully released version v$npm_package_version! The tag build process will publish it ✨\""
+    "prettier": "prettier --single-quote --write src/**/*.js"
+  },
+  "engines": {
+    "node": "8.12.0",
+    "yarn": "1.9.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test"
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
@@ -23,7 +33,12 @@
     "@babel/preset-env": "^7.4.2",
     "@babel/runtime": "^7.4.2",
     "babel-loader": "^8.0.5",
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
     "filemanager-webpack-plugin": "^2.0.5",
+    "husky": "^1.3.1",
+    "prettier": "^1.16.4",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-config-utils": "^2.3.1",

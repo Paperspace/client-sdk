@@ -2,7 +2,7 @@ const path = require('path');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 
-const package = require('./package.json');
+const packageJson = require('./package.json');
 
 const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
 const destination = path.resolve(__dirname, 'dist');
@@ -18,7 +18,7 @@ module.exports = {
   output: {
     path: destination,
     filename: '[name].js',
-    library: package.name,
+    library: packageJson.name,
     libraryTarget: 'umd',
     globalObject: '(self || this)'
   },

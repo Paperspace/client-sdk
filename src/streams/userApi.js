@@ -1,39 +1,44 @@
-/*
+/**
+ *
+ *
+ * functions that end with 'Promise' will return a promise
+ *
+ * usage:
+ *   api.createStream(node, vmInfo).then(function (stream) {
+ *     stream.open();
+ *     // stream.resize(x, y);
+ *     // stream.destory();
+ *   }, function (err) {
+ *
+ *   })
+ */
 
-  functions that end with 'Promise' will return a promise
-
- usage:
-   api.createStream(node, vmInfo).then(function (stream) {
-     stream.open();
-     // stream.resize(x, y);
-     // stream.destory();
-   }, function (err) {
-
-   })
-
-*/
-
-/*
-unfortunately there is no way to map a message to a cross domain iframe without risk of ambiguity
-therefore we use a communication token and a global registry to identify our iframes and stream instances
-*/
+/**
+ *
+ * unfortunately there is no way to map a message to a cross domain iframe without risk of ambiguity
+ * therefore we use a communication token and a global registry to identify our iframes and stream
+ * instances
+ */
 let communicationToken = 1;
 const instances = {};
 
-window.addEventListener('message', function (msg) {
-  const data = msg.data;
-  const instance = instances[data.comToken];
-  if (!instance) {
-    // dead instance
-    return;
-  };
-  if (!data || !data.payload) {
-    return;
-  }
+window.addEventListener(
+  'message',
+  function handleMessage(msg) {
+    const data = msg.data;
+    const instance = instances[data.comToken];
+    if (!instance) {
+      // dead instance
+      return;
+    }
+    if (!data || !data.payload) {
+      return;
+    }
 
-  instance._handleMessageReceived(data.payload);
-}, false);
-
+    instance.handleMessageReceived(data.payload);
+  },
+  false
+);
 
 function StreamApi(domNode, vmInfo = {}) {
   return new Promise((resolve, reject) => {
@@ -54,38 +59,41 @@ function StreamApi(domNode, vmInfo = {}) {
     domNode.appendChild(iframe);
 
     function sendMessage(payload) {
-      iframe.contentWindow.postMessage({
-        comToken: comToken,
-        payload
-      }, '*');
+      iframe.contentWindow.postMessage(
+        {
+          comToken: comToken,
+          payload
+        },
+        '*'
+      );
     }
 
-    iframe.addEventListener('load', () => {
-      intervalPoster = setInterval(() => {
-        sendMessage({ type: 'init' });
-      }, 5000);
-    }, false);
+    iframe.addEventListener(
+      'load',
+      () => {
+        intervalPoster = setInterval(() => {
+          sendMessage({ type: 'init' });
+        }, 5000);
+      },
+      false
+    );
 
     const stream = {
-      resize: function (x, y) {
-
-      },
-
-      open: function () {
+      open() {
         sendMessage({
           type: 'openvm',
           vmInfo
-        })
+        });
       },
 
-      destroy: function () {
+      destroy() {
         delete instances[comToken];
 
         iframe.parentNode.removeChild(iframe);
       }
     };
 
-    this._handleMessageReceived = (payload) => {
+    this.handleMessageReceived = payload => {
       if (intervalPoster) {
         clearInterval(intervalPoster);
         intervalPoster = null;
@@ -96,10 +104,10 @@ function StreamApi(domNode, vmInfo = {}) {
       }
     };
   });
-};
+}
 
 const api = {
-  createStream: function (domNode, vmInfo) {
+  createStream(domNode, vmInfo) {
     return new StreamApi(domNode, vmInfo);
   }
 };
