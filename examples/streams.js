@@ -32,7 +32,7 @@ function startStream() {
 function initialize() {
   const accessTokenInput = document.querySelector('input.accessTokenInput');
   accessTokenInput.addEventListener('change', function updateAccessToken(event) {
-    document.cookie = `jwt=${event.target.value}`;
+    document.cookie = `paperspace-jwt=${event.target.value}`;
   });
   const startStreamBtn = document.querySelector('.start-stream');
   startStreamBtn.addEventListener('click', startStream);
