@@ -57,7 +57,7 @@ function StreamApi(domNode, vmInfo = {}) {
 
     let intervalPoster = null;
     const iframe = document.createElement('iframe');
-    const targetSrc = `${host}/machine/${vmInfo.machineId}/embed`;
+    const targetSrc = `${host}/machine/embed`;
 
     iframe.setAttribute('src', targetSrc);
     iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');

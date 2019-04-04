@@ -13,7 +13,8 @@ function startStream() {
   const style = 'width: 100vw; height: calc(100vh - 23px);';
   vmStreamElement.setAttribute('style', style);
   const vmInfo = {
-    machineId: document.querySelector('input.machineIdInput').value
+    machineId: document.querySelector('input.machineIdInput').value,
+    accessToken: document.querySelector('input.accessTokenInput').value
   };
   streams.createStream(vmStreamElement, vmInfo).then((stream) => {
     const stopSteamBtn = document.querySelector('.stop-stream');
@@ -30,10 +31,6 @@ function startStream() {
 }
 
 function initialize() {
-  const accessTokenInput = document.querySelector('input.accessTokenInput');
-  accessTokenInput.addEventListener('change', function updateAccessToken(event) {
-    document.cookie = `paperspace-jwt=${event.target.value}`;
-  });
   const startStreamBtn = document.querySelector('.start-stream');
   startStreamBtn.addEventListener('click', startStream);
 }
