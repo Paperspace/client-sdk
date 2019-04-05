@@ -97,12 +97,17 @@ function StreamApi(domNode, vmInfo = {}) {
           type: 'openvm',
           vmInfo
         });
+        iframe.focus();
       },
 
       destroy() {
         delete instances[comToken];
-
-        iframe.parentNode.removeChild(iframe);
+        if (domNode.tagName !== 'IFRAME') {
+          iframe.parentNode.removeChild(iframe);
+        } else {
+          // Remove the source but do not delete node from parent since we did not create it
+          iframe.removeAttribute('src');
+        }
       }
     };
 
