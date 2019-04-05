@@ -56,12 +56,20 @@ function StreamApi(domNode, vmInfo = {}) {
     instances[comToken] = this;
 
     let intervalPoster = null;
-    const iframe = document.createElement('iframe');
-    const targetSrc = `${host}/machine/embed`;
-
-    iframe.setAttribute('src', targetSrc);
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-    domNode.appendChild(iframe);
+    let iframe = domNode;
+    if (domNode.tagName !== 'IFRAME') {
+      iframe = document.createElement('iframe');
+    }
+    const targetSrc = `${host}/embed-machine`;
+    if (!iframe.getAttribute('src')) {
+      iframe.setAttribute('src', targetSrc);
+    }
+    if (!iframe.getAttribute('sandbox')) {
+      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+    }
+    if (domNode.tagName !== 'IFRAME') {
+      domNode.appendChild(iframe);
+    }
 
     function sendMessage(payload) {
       iframe.contentWindow.postMessage(
