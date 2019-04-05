@@ -120,6 +120,11 @@ function StreamApi(domNode, vmInfo = {}) {
       if (payload.type === 'ready') {
         resolve(stream);
       }
+      if (payload.type === 'event') {
+        if (payload.name === 'focus') {
+          iframe.focus();
+        }
+      }
     };
   });
 }

@@ -36,6 +36,13 @@ const api = {
   ready() {
     sendMessage({ type: 'ready' });
   },
+  publishEvent(parEvent, parValue) {
+    sendMessage({
+      type: 'event',
+      name: parEvent,
+      value: parValue
+    });
+  },
   onOpenVmRequest() {} // override with your event handler
 };
 
