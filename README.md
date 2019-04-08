@@ -45,6 +45,7 @@ If you are developing this repository in conjunction with another, you can [`yar
 yarn link
 ```
 
+Remeber to run a build, probably the development build, to populate the `dist` folder, so the host repository have files to link!
 After this, you want to run `yarn link @paperspace/client-sdk` in the host repository to activate it.
 
 **NB**: Once you are done developing @paperspace/client-sdk remember to run `yarn unlink @paperspace/client-sdk` in the host repository and `yarn unlink` in the root of this repository! This link will stay active, even if you switch branches or pull the latest changes until you unlink them.
