@@ -54,7 +54,7 @@ After this, you want to run `yarn link @paperspace/client-sdk` in the host repos
 
 ## Publish a new version
 
-This repository is set up to publish a new version on a new tag. To publish a new version, first pull latest changes from development, and checkout a new release branch (if you are not quite sure yet you can use a [pre-release version](https://semver.org/#spec-item-9)), where `<new-version>` is the new version you are about to publish:
+This repository is set up to publish a new version on a new tag. To publish a new version, first pull latest changes from development, and checkout a new release branch, where `<new-version>` is the new version you are about to publish. If you are not quite sure about your change yet you can use a [pre-release version](https://semver.org/#spec-item-9) before you release an actual version change:
 ```
 $ git pull --rebase
 $ git checkout -b release_v<new-version>
