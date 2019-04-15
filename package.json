@@ -1,6 +1,6 @@
 {
   "name": "@paperspace/client-sdk",
-  "version": "0.0.4-rc7",
+  "version": "0.0.4-rc8",
   "description": "Paperspace SDK for client-side browser environments",
   "main": "dist/main.js",
   "repository": "git@github.com:Paperspace/@paperspace/client-sdk.git",
@@ -15,7 +15,8 @@
     "prettier": "prettier --single-quote --write src/**/*.js"
   },
   "engines": {
-    "node": ">=8.12.0"
+    "node": ">=8.12.0",
+    "yarn": ">=1.9.4"
   },
   "husky": {
     "hooks": {
