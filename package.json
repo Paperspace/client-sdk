@@ -11,7 +11,7 @@
     "test": "eslint .",
     "dev": "NODE_ENV=development webpack --progress --config webpack.config.js",
     "dist": "NODE_ENV=production webpack --progress --config webpack.config.js",
-    "postversion": "git push origin refs/tags/v\"$npm_package_version\" && git push && echo \"✨ Successfully released version v$npm_package_version! The tag build process will publish it ✨\"",
+    "postversion": "git push origin refs/tags/v\"$npm_package_version\" && echo \"✨ Successfully released version v$npm_package_version! The tag build process will publish it ✨\"",
     "prettier": "prettier --single-quote --write src/**/*.js"
   },
   "engines": {
