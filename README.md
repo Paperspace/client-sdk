@@ -37,6 +37,13 @@ $ yarn
 $ yarn build:prod
 ```
 
+## Environment variables
+
+You can set the host the client points to by running it with the following environment variable:
+```sh
+$ STREAM_HOST=http://localhost:3002 yarn start
+```
+
 ## Developing in conjunction with another repository
 
 If you are developing this repository in conjunction with another, you can [`yarn link`](https://yarnpkg.com/lang/en/docs/cli/link/) your local version of the @paperspace/client-sdk into the host repository:
@@ -70,7 +77,7 @@ CircleCI will pick up on the newly created tag and automatically publish the ver
 Now push your branch to remote and create a PR to see the status of the publish build and get your version change merged back into development:
 ```sh
 $ git push --set-upstream origin release_vX.Y.Z
-$ open https://github.com/Paperspace/PS_H264STREAM/compare/release_vX.Y.Z
+$ open https://github.com/Paperspace/client-sdk/compare/release_vX.Y.Z
 ```
 That's it! You can now install this module with either `yarn add @paperspace/client-sdk@latest` or `yarn add @paperspace/client-sdk@X.Y.Z`.
 
