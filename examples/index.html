@@ -12,17 +12,60 @@
       body {
         margin: 0px;
       }
-      iframe {
+
+      .commands {
+        height: 140px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .inputs {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      input, button {
+        margin-right: 1em;
+        margin-bottom: 1em;
+      }
+      .container {
+        border: 1px dashed gray;
+        width: 600px;
+        height: 300px;
+        margin: auto;
+      }
+
+      .container iframe {
         border-style: none;
         width: 100%;
         height: 100%;
       }
+
+      .container.fullscreen {
+        width: 100vw;
+        height: calc(100vh - 140px)
+      }
     </style>
-    <input class="machineIdInput" type="text" placeholder="Please type Machine ID" />
-    <input class="accessTokenInput" type="text" placeholder="Please type Your Access Token" />
-    <button class="start-stream">Start Stream</button>
-    <button class="stop-stream" disabled="true">Stop Stream</button>
-    <iframe class="vmStreamElement"></iframe>
+  <script type="text/javascript">
+    function toggleFullscreen() {
+      var el = document.body.getElementsByClassName('container')[0]
+      el.classList.toggle('fullscreen');
+    };
+  </script>
+    <div class='commands'>
+      <div class='inputs'>
+        <input class="machineIdInput" type="text" placeholder="Please type Machine ID" />
+        <input class="accessTokenInput" type="text" placeholder="Please type Your Access Token" />
+      </div>
+      <button class="start-stream">Start Stream</button>
+      <button class="stop-stream" disabled="true">Stop Stream</button>
+    </div>
+    <div class='container'>
+      <iframe class="vmStreamElement"></iframe>
+      <button onclick="toggleFullscreen()">Toggle Fullscreen</button>
+    </div>
     <script type="text/javascript" src="./streams.js"></script>
   </body>
 </html>

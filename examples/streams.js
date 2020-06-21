@@ -10,8 +10,6 @@ let boundStopStream;
 
 function startStream() {
   const vmStreamElement = document.querySelector('.vmStreamElement');
-  const style = 'width: 100vw; height: calc(100vh - 23px);';
-  vmStreamElement.setAttribute('style', style);
   const vmInfo = {
     machineId: document.querySelector('input.machineIdInput').value,
     accessToken: document.querySelector('input.accessTokenInput').value
