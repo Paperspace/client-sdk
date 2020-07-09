@@ -21,7 +21,7 @@
  */
 let communicationToken = 1;
 const instances = {};
-let host = 'https://paperspace.com';
+let host = 'https://console.paperspace.com';
 if (process.env.STREAM_HOST) {
   host = process.env.STREAM_HOST;
 }
