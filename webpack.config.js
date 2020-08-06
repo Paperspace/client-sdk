@@ -16,6 +16,9 @@ module.exports = {
     main: './src/index.js',
     ...ifNotProduction({ streams: './examples/streams.js' })
   },
+  devServer: {
+    port: 3004
+  },
   output: {
     path: destination,
     filename: '[name].js',
