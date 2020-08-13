@@ -38,9 +38,9 @@
     "filemanager-webpack-plugin": "^2.0.5",
     "husky": "^3.0.4",
     "prettier": "^1.18.2",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
     "webpack-config-utils": "^2.3.1",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.11.0"
   }
 }
