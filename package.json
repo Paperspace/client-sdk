@@ -1,6 +1,6 @@
 {
   "name": "@paperspace/client-sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Paperspace SDK for client-side browser environments",
   "main": "dist/main.js",
   "repository": "git@github.com:Paperspace/@paperspace/client-sdk.git",
